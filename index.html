@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maafin Aku Ya? 🥺</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        touch-action: manipulation; /* Optimasi klik di HP */
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        font-family: "Poppins", sans-serif;
+        background-color: #ffeef8;
+        text-align: center;
+      }
+
+      .container {
+        background: white;
+        padding: 2rem;
+        border-radius: 30px;
+        box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
+        max-width: 450px;
+        width: 100%;
+      }
+
+      .photo-frame {
+        width: 160px;
+        height: 160px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        border: 6px solid #ffc1e3;
+        overflow: hidden;
+        background: #eee;
+      }
+
+      .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      h1 {
+        color: #d63384;
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column; /* Default stack ke bawah untuk HP */
+        align-items: center;
+        gap: 15px;
+        margin-top: 10px;
+      }
+
+      button {
+        border: none;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        width: 80%; /* Lebar tombol seragam di HP */
+        max-width: 300px;
+      }
+
+      #yesBtn {
+        background-color: #ff477e;
+        color: white;
+        font-size: 18px;
+        order: 1; /* Biar tetap di atas kalau layar kecil */
+      }
+
+      #noBtn {
+        background-color: #888;
+        color: white;
+        font-size: 16px;
+        order: 2;
+      }
+
+      /* Tampilan Laptop/Tablet */
+      @media (min-width: 600px) {
+        .buttons {
+          flex-direction: row; /* Jejer samping kalau layar lebar */
+          justify-content: center;
+        }
+        button {
+          width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="mainContainer">
+      <div class="photo-frame">
+        <img src="pacarku.jpg" alt="Foto Pacar" id="mainPhoto" />
+      </div>
+
+      <h1 id="textDisplay">
+        Sayang, dimaafin nggak? <br />
+        Jangan ngambek lagi ya... 🥺
+      </h1>
+
+      <div class="buttons">
+        <button id="yesBtn" onclick="maafDiterima()">Iya, dimaafin ❤️</button>
+        <button id="noBtn" onclick="makinGede()">Enggak! 😡</button>
+      </div>
+    </div>
+
+    <script>
+      let yesSize = 18;
+      let paddingSize = 15;
+      let clickCount = 0;
+
+      function makinGede() {
+        clickCount++;
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+
+        // Tombol Yes membesar setiap klik No
+        yesSize += 35;
+        paddingSize += 15;
+
+        yesBtn.style.fontSize = yesSize + "px";
+        yesBtn.style.padding = paddingSize + "px " + paddingSize * 1.5 + "px";
+        yesBtn.style.width = "auto"; // Agar mengikuti ukuran font yang membesar
+        yesBtn.style.maxWidth = "100vw"; // Biar gak melebihi layar
+
+        // Pesan tombol No berganti-ganti
+        const pesanGagal = [
+          "Yakin?",
+          "Beneran?",
+          "Coba klik yang pink",
+          "Gak bisa!",
+          "Harus maafin!",
+          "Plisss banget",
+          "Tombol ini rusak kayaknya",
+        ];
+        noBtn.innerText = pesanGagal[clickCount % pesanGagal.length];
+
+        // Bonus: Tombol No makin lama makin kecil (opsional, tapi lucu)
+        let noSize = 16 - clickCount * 1;
+        if (noSize > 8) noBtn.style.fontSize = noSize + "px";
+      }
+
+      function maafDiterima() {
+        const container = document.getElementById("mainContainer");
+        container.innerHTML = `
+                <div class="photo-frame" style="border-color: #d63384;">
+                    <img src="pacarku.jpg" alt="Happy">
+                </div>
+                <h1 style="color: #d63384;">MAKASIH SAYANG! 🥰<br>Lope yu bertubi-tubii! 💖✨</h1>
+            `;
+        document.body.style.backgroundColor = "#e8f5e9";
+      }
+    </script>
+  </body>
+</html>
